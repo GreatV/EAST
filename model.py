@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.utils.model_zoo as model_zoo
+from torch.hub import load_state_dict_from_url
 import torch.nn.functional as F
 import math
 
@@ -64,7 +64,8 @@ class extractor(nn.Module):
 		super(extractor, self).__init__()
 		vgg16_bn = VGG(make_layers(cfg, batch_norm=True))
 		if pretrained:
-			vgg16_bn.load_state_dict(torch.load('./pths/vgg16_bn-6c64b313.pth'))
+			state_dict = load_state_dict_from_url("https://download.pytorch.org/models/vgg16_bn-6c64b313.pth", progress=True)
+			vgg16_bn.load_state_dict(state_dict)
 		self.features = vgg16_bn.features
 	
 	def forward(self, x):
