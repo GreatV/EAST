@@ -159,7 +159,7 @@ class output(nn.Module):
 		
 	
 class EAST(nn.Module):
-	def __init__(self, pretrained=True):
+	def __init__(self, pretrained=False):
 		super(EAST, self).__init__()
 		self.extractor = extractor(pretrained)
 		self.merge     = merge()
